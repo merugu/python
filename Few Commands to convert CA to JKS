@@ -1,0 +1,10 @@
+1) keytool -import -file caroot.crt -alias CARoot -keystore myTrustStore.jks
+You will be prompted for create a password for the KeyStore, this password will be used to access the certificates inside. Once you have the password set you will be asked if you trust the certificate.
+2)keytool -import -file InternalPolicyCA.crt -alias InternalPolicyCA -keystore myTrustStore.jks
+You will be prompted to enter the KeyStore password and asked if you trust the certificate.
+3)keytool -import -file InternalIssuingCA2.crt -alias InternalIssuingCA2 -keystore myTrustStore.jks
+You will be prompted to enter the KeyStore password and asked if you trust the certificate.
+4) Self signed cert generation
+echo | openssl s_client -showcerts -servername self-signed.badssl.com -connect yourkafkabrokerhostname:portnumber 2>/env/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > self-signed-cert.pem
+Other link
+https://devcenter.heroku.com/articles/ssl-certificate-self
